@@ -1,18 +1,32 @@
-const CACHE_NAME = 'takenote-v1';
-const urlsToCache = [
-  '/takenote/',
-  '/takenote/index.html',
-];
+const CACHE_NAME = 'takenote-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then((cache) => {
+      // Cache will be populated on first visit
+      return cache.addAll(['/takenote/', '/takenote/index.html']);
+    })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => response || fetch(event.request))
+    caches.match(event.request).then((response) => {
+      if (response) {
+        return response;
+      }
+      return fetch(event.request).then((response) => {
+        // Cache all successful responses
+        if (response && response.status === 200) {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return response;
+      });
+    })
   );
 });
 
@@ -28,4 +42,5 @@ self.addEventListener('activate', (event) => {
       )
     )
   );
+  self.clients.claim();
 });
