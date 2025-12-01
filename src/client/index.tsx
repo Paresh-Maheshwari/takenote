@@ -9,6 +9,7 @@ import { App } from '@/containers/App'
 import rootSaga from '@/sagas'
 import rootReducer from '@/slices'
 import history from '@/utils/history'
+import * as serviceWorker from '@/serviceWorker'
 
 import '@/styles/index.scss'
 
@@ -29,3 +30,5 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+serviceWorker.register()

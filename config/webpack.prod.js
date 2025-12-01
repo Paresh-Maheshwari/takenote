@@ -18,6 +18,9 @@ if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
 module.exports = merge(common, {
   mode: 'production',
   devtool: false,
+  output: {
+    publicPath: '/takenote/',
+  },
   module: {
     rules: [
       // Styles

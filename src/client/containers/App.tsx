@@ -52,7 +52,7 @@ export const App: React.FC = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>TakeNote</title>
-        <link rel="canonical" href="https://takenote.dev" />
+        <link rel="canonical" href="https://Paresh-Maheshwari.github.io/takenote" />
       </Helmet>
 
       <Switch>
