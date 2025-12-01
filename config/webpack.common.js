@@ -33,7 +33,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].[fullhash].bundle.js',
-    publicPath: '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/takenote/' : '/',
   },
   module: {
     rules: [
